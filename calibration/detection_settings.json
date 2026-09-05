@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "warning": "Broad development values; tune with real cubes after the fixed camera is mounted.",
+  "min_contour_area": 400.0,
+  "max_contour_area": 120000.0,
+  "aspect_ratio_min": 0.55,
+  "aspect_ratio_max": 1.8,
+  "min_extent": 0.45,
+  "min_solidity": 0.75,
+  "polygon_epsilon_ratio": 0.04,
+  "polygon_vertices_min": 4,
+  "polygon_vertices_max": 10,
+  "target_selection_policy": "largest",
+  "color_priority": [
+    "red",
+    "green",
+    "blue",
+    "yellow"
+  ]
+}

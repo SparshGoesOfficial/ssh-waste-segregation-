@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "awaiting_measurements",
+  "frame4_pick_z_mm": null,
+  "approach_clearance_mm": null,
+  "tool_pitch_deg": null,
+  "branch_policy": "unselected",
+  "notes": [
+    "Values describe the DH frame-4 origin, not the unmeasured gripper tip.",
+    "Measure the frame-4-to-gripping-point transform and cube geometry first.",
+    "Do not infer pick height from the camera image or DH table alone.",
+    "Servo mappings and collision-safe joint limits remain unconfirmed."
+  ]
+}

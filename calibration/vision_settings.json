@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "roi": {
+    "x": 205,
+    "y": 20,
+    "width": 840,
+    "height": 700
+  },
+  "gaussian_kernel_size": 5,
+  "morph_open_kernel_size": 3,
+  "morph_close_kernel_size": 5,
+  "morph_iterations": 1
+}

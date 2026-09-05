@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "status": "provisional",
+  "dh_convention": "standard",
+  "length_unit": "mm",
+  "angle_unit": "degrees",
+  "source_note": "Transcribed from the supplied DH-table image on 2026-09-05.",
+  "joints": [
+    {
+      "index": 1,
+      "name": "base",
+      "servo_model": "DS3218",
+      "a_mm": 0.0,
+      "alpha_deg": 90.0,
+      "d_mm": 149.6,
+      "dh_theta_offset_deg": 0.0,
+      "servo_raw_min_deg": 0.0,
+      "servo_raw_max_deg": 180.0,
+      "servo_center_deg": 90.0,
+      "servo_theta_at_center_deg": 0.0,
+      "servo_direction": 1,
+      "servo_mapping_confirmed": false
+    },
+    {
+      "index": 2,
+      "name": "shoulder",
+      "servo_model": "DS5160",
+      "a_mm": 311.221,
+      "alpha_deg": 0.0,
+      "d_mm": 29.56,
+      "dh_theta_offset_deg": 0.0,
+      "servo_raw_min_deg": 0.0,
+      "servo_raw_max_deg": 180.0,
+      "servo_center_deg": 90.0,
+      "servo_theta_at_center_deg": 0.0,
+      "servo_direction": 1,
+      "servo_mapping_confirmed": false
+    },
+    {
+      "index": 3,
+      "name": "elbow",
+      "servo_model": "DS5160",
+      "a_mm": 288.187,
+      "alpha_deg": 0.0,
+      "d_mm": -40.917,
+      "dh_theta_offset_deg": 0.0,
+      "servo_raw_min_deg": 0.0,
+      "servo_raw_max_deg": 180.0,
+      "servo_center_deg": 90.0,
+      "servo_theta_at_center_deg": 0.0,
+      "servo_direction": 1,
+      "servo_mapping_confirmed": false
+    },
+    {
+      "index": 4,
+      "name": "wrist",
+      "servo_model": "MG995",
+      "a_mm": 94.079,
+      "alpha_deg": 0.0,
+      "d_mm": 0.0,
+      "dh_theta_offset_deg": 0.0,
+      "servo_raw_min_deg": 0.0,
+      "servo_raw_max_deg": 180.0,
+      "servo_center_deg": 90.0,
+      "servo_theta_at_center_deg": 0.0,
+      "servo_direction": 1,
+      "servo_mapping_confirmed": false
+    }
+  ],
+  "gripper": {
+    "index": 5,
+    "name": "gripper",
+    "servo_model": "MG995",
+    "kinematic_joint": false,
+    "limits_confirmed": false
+  },
+  "assumptions": [
+    "Standard DH is provisional because the source did not identify standard versus modified DH.",
+    "The displayed approximate a1 value is represented as 0.0 mm.",
+    "The displayed servo formula theta=servo_raw-90 is stored as center=90, direction=+1, offset=0.",
+    "All servo direction signs, zero offsets, and collision-safe limits require physical confirmation.",
+    "The frame-4 origin is not assumed to be the cube gripping point until the tool-center offset is measured."
+  ]
+}

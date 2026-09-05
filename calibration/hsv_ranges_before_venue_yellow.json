@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "warning": "Starting values only until calibrated under actual lighting.",
+  "calibrated": {
+    "red": false,
+    "green": false,
+    "blue": false,
+    "yellow": false
+  },
+  "colors": {
+    "red": {
+      "ranges": [
+        {
+          "lower": [
+            0,
+            100,
+            70
+          ],
+          "upper": [
+            10,
+            255,
+            255
+          ]
+        },
+        {
+          "lower": [
+            170,
+            100,
+            80
+          ],
+          "upper": [
+            179,
+            255,
+            255
+          ]
+        }
+      ]
+    },
+    "green": {
+      "ranges": [
+        {
+          "lower": [
+            35,
+            100,
+            70
+          ],
+          "upper": [
+            89,
+            255,
+            255
+          ]
+        }
+      ]
+    },
+    "blue": {
+      "ranges": [
+        {
+          "lower": [
+            100,
+            100,
+            70
+          ],
+          "upper": [
+            122,
+            255,
+            255
+          ]
+        }
+      ]
+    },
+    "yellow": {
+      "ranges": [
+        {
+          "lower": [
+            20,
+            100,
+            80
+          ],
+          "upper": [
+            34,
+            255,
+            255
+          ]
+        }
+      ]
+    }
+  }
+}

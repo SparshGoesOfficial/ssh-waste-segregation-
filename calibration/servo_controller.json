@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "provisional_unverified",
+  "transport": "usb_serial",
+  "baud_rate": 115200,
+  "firmware_protocol": "ARM_SERIAL_V1",
+  "joints": [
+    {"name": "base", "id": "J1", "pin": 9, "minimum_deg": 0, "maximum_deg": 180, "startup_deg": 90},
+    {"name": "shoulder", "id": "J2", "pin": 10, "minimum_deg": 20, "maximum_deg": 160, "startup_deg": 90},
+    {"name": "elbow", "id": "J3", "pin": 11, "minimum_deg": 10, "maximum_deg": 170, "startup_deg": 90},
+    {"name": "wrist", "id": "J4", "pin": 6, "minimum_deg": 0, "maximum_deg": 180, "startup_deg": 90},
+    {"name": "gripper", "id": "J5", "pin": 5, "minimum_deg": 30, "maximum_deg": 90, "startup_deg": 90}
+  ],
+  "gripper": {"open_deg": 90, "closed_deg": 30},
+  "motion": {
+    "minimum_duration_ms": 100,
+    "maximum_duration_ms": 10000,
+    "keepalive_interval_ms": 200,
+    "firmware_watchdog_ms": 750
+  },
+  "notes": [
+    "Pin assignments and provisional limits came from the supplied joystick sketch.",
+    "The Arduino boots disarmed and does not attach any servo until an explicit ARM command.",
+    "Confirm every physical joint direction, center, and safe limit before connecting motors.",
+    "Software STOP holds the last commanded position; the external servo-power switch is the physical emergency stop."
+  ]
+}

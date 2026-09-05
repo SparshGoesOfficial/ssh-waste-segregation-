@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "status": "calibrated",
+  "camera": {
+    "backend": "opencv",
+    "camera_index": 2,
+    "resolution": [
+      1280,
+      720
+    ],
+    "rotation_degrees": 0,
+    "source_image": "logs\\grid_500mm_venue.jpg"
+  },
+  "coordinate_frame": {
+    "name": "temporary_floor_frame",
+    "units": "mm",
+    "origin": "bottom-left tape centreline intersection",
+    "x_axis": "bottom-left to bottom-right",
+    "y_axis": "bottom-left to top-left",
+    "robot_base_alignment": "not_calibrated"
+  },
+  "correspondences": [
+    {
+      "pixel": [
+        291.139,
+        41.827
+      ],
+      "table_mm": [
+        0.0,
+        500.0
+      ]
+    },
+    {
+      "pixel": [
+        961.427,
+        32.562
+      ],
+      "table_mm": [
+        500.0,
+        500.0
+      ]
+    },
+    {
+      "pixel": [
+        252.385,
+        351.947
+      ],
+      "table_mm": [
+        0.0,
+        250.0
+      ]
+    },
+    {
+      "pixel": [
+        996.204,
+        340.683
+      ],
+      "table_mm": [
+        500.0,
+        250.0
+      ]
+    },
+    {
+      "pixel": [
+        207.678,
+        709.701
+      ],
+      "table_mm": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "pixel": [
+        1038.574,
+        716.086
+      ],
+      "table_mm": [
+        500.0,
+        0.0
+      ]
+    }
+  ],
+  "homography_table_from_pixel": [
+    [
+      0.7798983129251312,
+      0.09270280520441944,
+      -229.28262678279592
+    ],
+    [
+      0.0034036844225168064,
+      -0.7687282837724865,
+      547.3534234315798
+    ],
+    [
+      4.054032427290893e-05,
+      0.00034781966756762143,
+      1.0
+    ]
+  ],
+  "homography_pixel_from_table": [
+    [
+      1.5989262120660637,
+      0.2874937537292305,
+      209.24531161548305
+    ],
+    [
+      -0.03131840328219714,
+      -1.3156614605890984,
+      712.9510387592503
+    ],
+    [
+      -5.392783050724965e-05,
+      0.00044595784185101265,
+      1.0
+    ]
+  ],
+  "quality": {
+    "point_count": 6,
+    "rms_error_mm": 2.7322499059030063,
+    "max_error_mm": 4.858986089036913
+  },
+  "warnings": [
+    "Recalibrate after any camera, table, resolution, focus, or rotation change."
+  ]
+}

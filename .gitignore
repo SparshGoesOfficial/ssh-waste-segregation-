@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.venv/
+logs/*
+!logs/.gitkeep
+c270_*.jpg
+repomix-output.xml

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "roi": null,
+  "gaussian_kernel_size": 5,
+  "morph_open_kernel_size": 3,
+  "morph_close_kernel_size": 5,
+  "morph_iterations": 1
+}
