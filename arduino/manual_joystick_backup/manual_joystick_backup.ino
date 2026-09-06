@@ -11,8 +11,9 @@ const unsigned long DEBOUNCE_MS = 250;
 const int DEADZONE = 40;
 const float MAX_SPEED = 1.5;
 
-const int GRIPPER_OPEN_ANGLE = 90;
-const int GRIPPER_CLOSE_ANGLE = 30;
+// Latest confirmed working gripper endpoints (35-degree travel).
+const int GRIPPER_OPEN_ANGLE = 50;
+const int GRIPPER_CLOSE_ANGLE = 15;
 
 void setup() {
   base.attach(9);

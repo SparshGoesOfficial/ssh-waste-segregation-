@@ -45,15 +45,15 @@ class SerialControllerTests(unittest.TestCase):
         )
         self.assertEqual(
             tuple((joint.minimum_deg, joint.maximum_deg) for joint in self.config.joints),
-            ((0, 180), (20, 160), (10, 170), (0, 180), (30, 90)),
+            ((0, 180), (20, 160), (10, 170), (0, 180), (15, 50)),
         )
-        self.assertEqual(self.config.startup_angles, (90, 90, 90, 90, 90))
+        self.assertEqual(self.config.startup_angles, (90, 90, 90, 90, 50))
 
     def test_angles_are_rounded_and_checked_before_serial_write(self) -> None:
-        actual = normalize_servo_angles((90.4, 89.6, 90, 90, 90), self.config)
-        self.assertEqual(actual, (90, 90, 90, 90, 90))
+        actual = normalize_servo_angles((90.4, 89.6, 90, 90, 49.6), self.config)
+        self.assertEqual(actual, (90, 90, 90, 90, 50))
         with self.assertRaises(ServoSafetyError):
-            normalize_servo_angles((90, 0, 90, 90, 90), self.config)
+            normalize_servo_angles((90, 0, 90, 90, 50), self.config)
         with self.assertRaises(ServoSafetyError):
             normalize_servo_angles((90, 90, 90, 90), self.config)
 
@@ -73,8 +73,8 @@ class SerialControllerTests(unittest.TestCase):
     def test_status_and_limits_are_read_only_commands(self) -> None:
         stream = FakeSerial(
             [
-                "STATUS DISARMED IDLE 90 90 90 90 90",
-                "LIMITS 0:180 20:160 10:170 0:180 30:90",
+                "STATUS DISARMED IDLE 90 90 90 90 50",
+                "LIMITS 0:180 20:160 10:170 0:180 15:50",
             ]
         )
         controller = ArmSerialController(stream, self.config)
@@ -86,9 +86,9 @@ class SerialControllerTests(unittest.TestCase):
         stream = FakeSerial(["OK ARMED", "ACK m1", "DONE m1"])
         controller = ArmSerialController(stream, self.config)
         self.assertEqual(controller.arm(self.config.startup_angles), "OK ARMED")
-        self.assertEqual(controller.move((91, 90, 90, 90, 90), 300), "DONE m1")
-        self.assertEqual(stream.writes[0], "ARM 90 90 90 90 90\n")
-        self.assertEqual(stream.writes[1], "MOVE m1 300 91 90 90 90 90\n")
+        self.assertEqual(controller.move((91, 90, 90, 90, 50), 300), "DONE m1")
+        self.assertEqual(stream.writes[0], "ARM 90 90 90 90 50\n")
+        self.assertEqual(stream.writes[1], "MOVE m1 300 91 90 90 90 50\n")
 
     def test_joint_and_gripper_commands_are_explicit(self) -> None:
         stream = FakeSerial(["ACK m1", "DONE m1", "ACK m2", "DONE m2"])
@@ -98,11 +98,21 @@ class SerialControllerTests(unittest.TestCase):
         self.assertEqual(stream.writes[0], "JOINT m1 2 91 400\n")
         self.assertEqual(stream.writes[1], "GRIP m2 CLOSE 300\n")
 
+    def test_calibrated_shoulder_move_preloads_then_descends(self) -> None:
+        stream = FakeSerial(["ACK m1", "DONE m1", "ACK m2", "DONE m2"])
+        controller = ArmSerialController(stream, self.config)
+        self.assertEqual(
+            controller.move_calibrated_shoulder(70.0, 400),
+            ("DONE m1", "DONE m2"),
+        )
+        self.assertEqual(stream.writes[0], "JOINT m1 2 78 400\n")
+        self.assertEqual(stream.writes[1], "JOINT m2 2 73 400\n")
+
     def test_arduino_error_is_not_silently_ignored(self) -> None:
         stream = FakeSerial(["ERR DISARMED"])
         controller = ArmSerialController(stream, self.config)
         with self.assertRaises(SerialProtocolError):
-            controller.move((90, 90, 90, 90, 90), 300)
+            controller.move((90, 90, 90, 90, 50), 300)
 
 
 if __name__ == "__main__":

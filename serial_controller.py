@@ -9,6 +9,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
+try:
+    from .servo_calibration import (
+        ServoCalibrationError,
+        load_directional_calibration,
+    )
+except ImportError:  # pragma: no cover - direct script imports
+    from servo_calibration import ServoCalibrationError, load_directional_calibration
+
 
 DEFAULT_SERVO_CONTROLLER_PATH = (
     Path(__file__).resolve().parent / "calibration" / "servo_controller.json"
@@ -347,6 +355,31 @@ class ArmSerialController:
             f"JOINT {command_id} {joint_number} {normalized} {duration}"
         )
         return self._wait_for_motion(command_id, duration)
+
+    def move_calibrated_shoulder(
+        self,
+        physical_angle: float,
+        duration_ms: int,
+        *,
+        preload_margin_raw_deg: float = 5.0,
+    ) -> tuple[str, str]:
+        """Move J2 using its measured curve and a raw-decreasing final approach."""
+
+        shoulder = self.config.joints[1]
+        try:
+            calibration = load_directional_calibration("J2")
+            preload, target = calibration.descending_approach_commands(
+                physical_angle,
+                preload_margin_raw_deg=preload_margin_raw_deg,
+                raw_min_deg=shoulder.minimum_deg,
+                raw_max_deg=shoulder.maximum_deg,
+            )
+        except ServoCalibrationError as exc:
+            raise ServoSafetyError(f"J2 calibrated move rejected: {exc}") from exc
+
+        preload_result = self.move_joint(2, preload, duration_ms)
+        target_result = self.move_joint(2, target, duration_ms)
+        return preload_result, target_result
 
     def grip(self, opened: bool, duration_ms: int = 500) -> str:
         if not isinstance(opened, bool):

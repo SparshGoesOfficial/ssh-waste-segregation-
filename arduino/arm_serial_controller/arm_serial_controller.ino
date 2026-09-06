@@ -9,11 +9,11 @@
 
 const uint8_t JOINT_COUNT = 5;
 const uint8_t SERVO_PINS[JOINT_COUNT] = {9, 10, 11, 6, 5};
-const int MIN_ANGLES[JOINT_COUNT] = {0, 20, 10, 0, 30};
-const int MAX_ANGLES[JOINT_COUNT] = {180, 160, 170, 180, 90};
-const int STARTUP_ANGLES[JOINT_COUNT] = {90, 90, 90, 90, 90};
-const int GRIPPER_OPEN_ANGLE = 90;
-const int GRIPPER_CLOSED_ANGLE = 30;
+const int MIN_ANGLES[JOINT_COUNT] = {0, 20, 10, 0, 15};
+const int MAX_ANGLES[JOINT_COUNT] = {180, 160, 170, 180, 50};
+const int STARTUP_ANGLES[JOINT_COUNT] = {90, 90, 90, 90, 50};
+const int GRIPPER_OPEN_ANGLE = 50;
+const int GRIPPER_CLOSED_ANGLE = 15;
 
 const unsigned long MIN_DURATION_MS = 100;
 const unsigned long MAX_DURATION_MS = 10000;

@@ -5,13 +5,13 @@
   "baud_rate": 115200,
   "firmware_protocol": "ARM_SERIAL_V1",
   "joints": [
-    {"name": "base", "id": "J1", "pin": 9, "minimum_deg": 0, "maximum_deg": 180, "startup_deg": 90},
-    {"name": "shoulder", "id": "J2", "pin": 10, "minimum_deg": 20, "maximum_deg": 160, "startup_deg": 90},
-    {"name": "elbow", "id": "J3", "pin": 11, "minimum_deg": 10, "maximum_deg": 170, "startup_deg": 90},
-    {"name": "wrist", "id": "J4", "pin": 6, "minimum_deg": 0, "maximum_deg": 180, "startup_deg": 90},
-    {"name": "gripper", "id": "J5", "pin": 5, "minimum_deg": 30, "maximum_deg": 90, "startup_deg": 90}
+    {"name": "base", "id": "J1", "pin": 9, "minimum_deg": 0, "maximum_deg": 180, "startup_deg": 90, "calibration_confirmed": false},
+    {"name": "shoulder", "id": "J2", "pin": 10, "minimum_deg": 20, "maximum_deg": 160, "startup_deg": 90, "calibration_confirmed": false, "partial_calibration_confirmed": true, "functional_test_confirmed": true, "autonomous_control_allowed": true, "calibrated_physical_min_deg": 53, "calibrated_physical_max_deg": 90, "control_policy": "compensated_raw_decreasing_final_approach"},
+    {"name": "elbow", "id": "J3", "pin": 11, "minimum_deg": 10, "maximum_deg": 170, "startup_deg": 90, "calibration_confirmed": false},
+    {"name": "wrist", "id": "J4", "pin": 6, "minimum_deg": 0, "maximum_deg": 180, "startup_deg": 90, "calibration_confirmed": false, "functional_test_confirmed": true, "minimum_confirmed": true, "maximum_confirmed": false},
+    {"name": "gripper", "id": "J5", "pin": 5, "minimum_deg": 15, "maximum_deg": 50, "startup_deg": 50, "calibration_confirmed": true, "direction": "increasing_angle_opens"}
   ],
-  "gripper": {"open_deg": 90, "closed_deg": 30},
+  "gripper": {"open_deg": 50, "closed_deg": 15},
   "motion": {
     "minimum_duration_ms": 100,
     "maximum_duration_ms": 10000,
@@ -19,7 +19,10 @@
     "firmware_watchdog_ms": 750
   },
   "notes": [
-    "Pin assignments and provisional limits came from the supplied joystick sketch.",
+    "Pin assignments and provisional joint limits came from the latest supplied joystick sketch.",
+    "J5 was physically verified on COM8: 15 degrees fully closed, 50 degrees fully open, and increasing angle opens the gripper.",
+    "J4 was physically verified from 90 down to 0 degrees; its 180-degree upper endpoint and DH direction remain unconfirmed.",
+    "J2 is partially calibrated for physical 53..90 degrees using raw-to-physical descending points 60->53, 70->67, 80->78, and 90->90. Autonomous J2 positioning must preload 5 raw degrees above the compensated target and finish with a raw-decreasing approach.",
     "The Arduino boots disarmed and does not attach any servo until an explicit ARM command.",
     "Confirm every physical joint direction, center, and safe limit before connecting motors.",
     "Software STOP holds the last commanded position; the external servo-power switch is the physical emergency stop."

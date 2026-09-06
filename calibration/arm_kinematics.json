@@ -34,7 +34,10 @@
       "servo_center_deg": 90.0,
       "servo_theta_at_center_deg": 0.0,
       "servo_direction": 1,
-      "servo_mapping_confirmed": false
+      "servo_mapping_confirmed": false,
+      "directional_calibration_file": "servo_measurements.json",
+      "directional_calibration_joint_id": "J2",
+      "directional_calibration_status": "partial_confirmed_descending_approach_53_to_90_deg"
     },
     {
       "index": 3,
@@ -64,7 +67,10 @@
       "servo_center_deg": 90.0,
       "servo_theta_at_center_deg": 0.0,
       "servo_direction": 1,
-      "servo_mapping_confirmed": false
+      "servo_mapping_confirmed": false,
+      "functional_test_confirmed": true,
+      "servo_raw_min_confirmed": true,
+      "servo_raw_max_confirmed": false
     }
   ],
   "gripper": {
@@ -72,7 +78,10 @@
     "name": "gripper",
     "servo_model": "MG995",
     "kinematic_joint": false,
-    "limits_confirmed": false
+    "limits_confirmed": true,
+    "closed_servo_deg": 15.0,
+    "open_servo_deg": 50.0,
+    "servo_direction": "increasing_angle_opens"
   },
   "assumptions": [
     "Standard DH is provisional because the source did not identify standard versus modified DH.",

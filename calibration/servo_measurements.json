@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "angle_unit": "degrees",
+  "measurement_method": "manual physical-angle observation",
+  "joints": {
+    "J2": {
+      "name": "shoulder",
+      "servo_model": "DS5160",
+      "pin": 10,
+      "status": "partial_calibration_confirmed_descending_approach_53_to_90_deg",
+      "serial_connection_mode": "persistent_no_reset",
+      "descending_sweep": [
+        {"raw_servo_deg": 90.0, "physical_joint_deg": 90.0},
+        {"raw_servo_deg": 80.0, "physical_joint_deg": 78.0},
+        {"raw_servo_deg": 70.0, "physical_joint_deg": 67.0},
+        {"raw_servo_deg": 60.0, "physical_joint_deg": 53.0}
+      ],
+      "ascending_sweep": [
+        {"raw_servo_deg": 70.0, "physical_joint_deg": 60.0},
+        {"raw_servo_deg": 80.0, "physical_joint_deg": 74.0},
+        {"raw_servo_deg": 90.0, "physical_joint_deg": 85.0},
+        {"raw_servo_deg": 95.0, "physical_joint_deg": 88.0}
+      ],
+      "calibration_model": {
+        "type": "direction_dependent_piecewise_linear",
+        "dh_reference": {
+          "physical_joint_deg": 90.0,
+          "dh_theta_deg": 0.0
+        },
+        "controlled_physical_range_deg": [53.0, 90.0],
+        "control_policy": {
+          "final_approach": "raw_decreasing",
+          "preload_margin_raw_deg": 5.0,
+          "reason": "Use the four consistent descending-sweep measurements and avoid direction-dependent final-position error."
+        },
+        "raw_decreasing": {
+          "use_when": "moving shoulder downward with decreasing raw command",
+          "points_raw_to_physical": [
+            [60.0, 53.0],
+            [70.0, 67.0],
+            [80.0, 78.0],
+            [90.0, 90.0]
+          ],
+          "least_squares_physical_from_raw": {
+            "slope": 1.22,
+            "intercept": -19.5,
+            "rmse_deg": 0.6708203932,
+            "max_abs_error_deg": 1.1
+          }
+        },
+        "raw_increasing": {
+          "use_when": "lifting shoulder upward with increasing raw command",
+          "points_raw_to_physical": [
+            [70.0, 60.0],
+            [80.0, 74.0],
+            [90.0, 85.0],
+            [95.0, 88.0]
+          ],
+          "least_squares_physical_from_raw": {
+            "slope": 1.1355932203,
+            "intercept": -18.3559322034,
+            "rmse_deg": 1.343534423,
+            "max_abs_error_deg": 1.5254237288
+          }
+        },
+        "measured_error_without_compensation": {
+          "mae_deg": 4.7142857143,
+          "rmse_deg": 5.644149762,
+          "max_abs_error_deg": 10.0
+        },
+        "measured_directional_hysteresis": {
+          "mean_abs_deg_at_shared_raw_points": 5.3333333333,
+          "max_abs_deg_at_shared_raw_points": 7.0
+        },
+        "linear_fit_residual_combined": {
+          "mae_deg": 0.9402542373,
+          "rmse_deg": 1.0618579815,
+          "max_abs_error_deg": 1.5254237288
+        },
+        "command_lookup_deg": [
+          {"physical_target_deg": 60.0, "raw_when_decreasing": 65.0, "raw_when_increasing": 70.0},
+          {"physical_target_deg": 70.0, "raw_when_decreasing": 72.7272727273, "raw_when_increasing": 77.1428571429},
+          {"physical_target_deg": 80.0, "raw_when_decreasing": 81.6666666667, "raw_when_increasing": 85.4545454545},
+          {"physical_target_deg": 90.0, "raw_when_decreasing": 90.0, "raw_when_increasing": null, "increasing_value_blocked": true}
+        ],
+        "validation_attempts": [
+          {"raw_servo_deg": 95.0, "physical_joint_deg": 88.0, "movement_direction": "raw_increasing"},
+          {"raw_servo_deg": 98.0, "physical_joint_deg": 86.0, "movement_direction": "raw_increasing", "result": "failed_non_monotonic_response"}
+        ],
+        "safe_for_autonomous_control": true,
+        "autonomous_control_constraints": [
+          "Only physical targets from 53 through 90 degrees are calibrated.",
+          "The final J2 move must approach from a raw command at least 5 degrees above the compensated target.",
+          "The upward measurements are diagnostics only and must not be used as the final positioning curve."
+        ]
+      },
+      "notes": [
+        "Measurements are provisional manual readings.",
+        "A persistent serial connection is required during loaded calibration because reopening COM8 resets the Uno and temporarily detaches the shoulder servo.",
+        "Use the piecewise table matching the direction of the final approach; a single fixed offset is invalid.",
+        "The lookup-table interpolation has zero in-sample residual by construction; the linear-fit residual is reported as a conservative model-quality diagnostic.",
+        "Raw 95 degrees produced 88 physical degrees on the upward validation pass.",
+        "Raw 98 degrees subsequently produced only 86 physical degrees while the Arduino reported J2 attached at raw 98; therefore upward readings are excluded from the final positioning curve.",
+        "Autonomous J2 positioning uses only the four descending measurements and enforces a descending final approach."
+      ]
+    }
+  }
+}
